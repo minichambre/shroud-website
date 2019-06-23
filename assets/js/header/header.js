@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-require('../css/header.css');
+import NavLink from "./navLink.js";
+require('../../css/header.css');
 
 class Header extends React.Component {
   constructor(props){
@@ -18,11 +19,11 @@ class Header extends React.Component {
 
   getNavLinks(){
     return (
-      <div id="nav-links-container">
-        <a class="nav-links" href="#"> link </a>
-        <a class="nav-links" href="#"> link </a>
-        <a class="nav-links" href="#"> link </a>
-        <a class="nav-links" href="#"> link </a>
+      <div id="nav">
+        <NavLink linkName="Home" linkUrl="/"/>
+        <NavLink linkName="Apply" linkUrl="/apply"/>
+        <NavLink linkName="Applications" linkUrl="/applications"/>
+        <NavLink linkName="Forums" linkUrl="/Forums"/>
       </div>
     );
   }
