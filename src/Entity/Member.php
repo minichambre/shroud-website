@@ -37,12 +37,12 @@ class Member
     private $password;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
     private $last_edited;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
     private $last_login;
 
@@ -50,6 +50,11 @@ class Member
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Application", inversedBy="member", cascade={"persist", "remove"})
+     */
+    private $application;
 
     public function getId(): ?int
     {
@@ -104,24 +109,24 @@ class Member
         return $this;
     }
 
-    public function getLastEdited(): ?\DateTimeInterface
+    public function getLastEdited(): ?int
     {
         return $this->last_edited;
     }
 
-    public function setLastEdited(\DateTimeInterface $last_edited): self
+    public function setLastEdited(int $last_edited): self
     {
         $this->last_edited = $last_edited;
 
         return $this;
     }
 
-    public function getLastLogin(): ?\DateTimeInterface
+    public function getLastLogin(): ?int
     {
         return $this->last_login;
     }
 
-    public function setLastLogin(\DateTimeInterface $last_login): self
+    public function setLastLogin(int $last_login): self
     {
         $this->last_login = $last_login;
 
@@ -136,6 +141,18 @@ class Member
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getApplication(): ?Application
+    {
+        return $this->application;
+    }
+
+    public function setApplication(?Application $application): self
+    {
+        $this->application = $application;
 
         return $this;
     }
