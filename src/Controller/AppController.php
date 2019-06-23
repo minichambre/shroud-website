@@ -92,7 +92,6 @@ class AppController extends AbstractController
      */
     public function apply(Request $request)
     {
-        $e = $this->getUser()->getUsername();
         $status = false;
         $application =  new Application();
 
@@ -143,7 +142,6 @@ class AppController extends AbstractController
           }
 
         return $this->render('app/apply.html.twig', [
-            'username' => $e,
             'form' => $form->createView(),
             'controller_name' => 'AppController',
             'status' => $status

@@ -13,7 +13,14 @@ class Header extends React.Component {
   }
 
   getMessage(){
-    let message = "hi" + user;
+    console.log(user);
+    let message = ""
+    if (user){
+      message = "Welcome " + user;
+    } else {
+      message = "Log in";
+    }
+
     return (<h1> {message} </h1>);
   }
 
