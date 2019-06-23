@@ -17,11 +17,12 @@ class Header extends React.Component {
     let message = ""
     if (user){
       message = "Welcome " + user;
+      return (<a href="/logout"> <h2>{message} </h2> </a>);
     } else {
-      message = "Log in";
+        return (<a href="/login"> <h2>Log in </h2> </a>);
     }
 
-    return (<h1> {message} </h1>);
+
   }
 
   getNavLinks(){
