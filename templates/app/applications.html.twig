@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello APPLICATIONS!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    These beans are <super> tiny </strong>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Main</th>
+            <th>Spec</th>
+            <th>Alts</th>
+            <th>Warcraft Logs</th>
+            <th>Created</th>
+            <th>Experience</th>
+
+            <th>Attendance</th>
+            <th>About</th>
+            <th>History</th>
+            <th>Voice</th>
+            <th>Battletag</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for application in applications %}
+          <tr>
+            <td>{{application.id}}</td>
+            <td>{{application.status}}</td>
+            <td>{{application.CharacterMain}}</td>
+            <td>{{application.spec}}</td>
+            <td>{{application.CharacterAlts}}</td>
+            <td><a href="{{application.LogLink}}"> {{application.LogLink}} </a></td>
+            <td>{{application.DateCreated |date("d/m/Y h:i:s a", "Europe/London")}}</td>
+            <td>{{application.experience}}</td>
+            <td>{{application.attendance}}</td>
+            <td>{{application.about}}</td>
+            <td>{{application.history}}</td>
+            <td>{{application.voice}}</td>
+            <td>{{application.battletag}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

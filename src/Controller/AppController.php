@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AppController extends AbstractController
 {
@@ -30,9 +33,18 @@ class AppController extends AbstractController
     }
 
     /**
+     * @Route("/logoutRedirect", name="logoutRedirect")
+     */
+    public function logout()
+    {
+        return $this->render('app/index.html.twig', [
+        ]);
+    }
+
+    /**
      * @Route("/signup", name="signUp")
      */
-    public function signUp(Request $request){
+    public function signUp(UserPasswordEncoderInterface $encoder, Request $request){
       $status = false;
       $member =  new Member();
 
@@ -52,7 +64,9 @@ class AppController extends AbstractController
             $member = $form->getData();
 
             //$member->setStatus("pending");
-            $member->setPassword("password");
+            $plainPassword = "password";
+            $encoded = $encoder->encodePassword($member, $plainPassword);
+            $member->setPassword($encoded);
             $member->setLastEdited(time());
             $member->setLastLogin(time());
             $member->setRoles([]);
@@ -78,6 +92,7 @@ class AppController extends AbstractController
      */
     public function apply(Request $request)
     {
+        $e = $this->getUser()->getUsername();
         $status = false;
         $application =  new Application();
 
@@ -128,9 +143,21 @@ class AppController extends AbstractController
           }
 
         return $this->render('app/apply.html.twig', [
+            'username' => $e,
             'form' => $form->createView(),
             'controller_name' => 'AppController',
             'status' => $status
         ]);
+    }
+
+    /**
+     * @Route("/applications", name="applications")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function applications(){
+      $results =$this->getDoctrine()->getRepository(Application::class)->findByStatus("pending");
+      return $this->render('app/applications.html.twig',[
+        "applications" => $results
+      ]);
     }
 }

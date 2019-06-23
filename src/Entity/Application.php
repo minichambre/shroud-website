@@ -84,7 +84,8 @@ class Application
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Member", mappedBy="application", cascade={"persist", "remove"})
      */
-    private $member;
+    private $owner;
+
 
     public function getId(): ?int
     {
@@ -247,21 +248,22 @@ class Application
         return $this;
     }
 
-    public function getMember(): ?Member
+    public function getOwner(): ?Member
     {
-        return $this->member;
+        return $this->owner;
     }
 
-    public function setMember(?Member $member): self
+    public function setOwner(?Member $owner): self
     {
-        $this->member = $member;
+        $this->owner = $owner;
 
         // set (or unset) the owning side of the relation if necessary
-        $newApplication = $member === null ? null : $this;
-        if ($newApplication !== $member->getApplication()) {
-            $member->setApplication($newApplication);
+        $newApplication = $owner === null ? null : $this;
+        if ($newApplication !== $owner->getApplication()) {
+            $owner->setApplication($newApplication);
         }
 
         return $this;
     }
+
 }
