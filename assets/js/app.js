@@ -13,3 +13,13 @@ require('../css/header.css');
 // const $ = require('jquery');
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+document.addEventListener("DOMContentLoaded", function() {
+  var mobileNav = document.querySelector('.mobile-nav-dropdown-button')
+  var mobileNavDropdown = document.querySelector(".mobile-nav-dropdown")
+  var navChevron = document.querySelector("#nav-chevron")
+  mobileNav.addEventListener('click', () => {
+    mobileNavDropdown.classList.toggle("nav-dropdown-show");
+    navChevron.classList.toggle('chevron-up');
+  })
+
+});

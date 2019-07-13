@@ -8,6 +8,9 @@
         {% block stylesheets %}
           {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        {% block javascripts %}
+          {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </head>
     <body>
         <header id="head">
@@ -31,6 +34,10 @@
           <div class="mobile-header">
               <a href="/"><img class="logo" src="https://s3.amazonaws.com/file3.guildlaunch.net/443842/site_files/site_header672.png"></a>
               <div class="mobile-nav">
+                <a href="/"> Shroud-Silvermoon </a>
+                <button class="mobile-nav-dropdown-button" type="button" name="button"><img id="nav-chevron" class="chevron" src="/images/chevron-down.svg"/></button>
+              </div>
+              <div class="mobile-nav-dropdown">
                 <a href="/"> Home <div class="status-bar"></div></a>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <a href="/applications"> Applications</a>
