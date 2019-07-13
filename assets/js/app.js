@@ -12,7 +12,6 @@ require('../css/header.css');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 document.addEventListener("DOMContentLoaded", function() {
   var mobileNav = document.querySelector('.mobile-nav-dropdown-button')
   var mobileNavDropdown = document.querySelector(".mobile-nav-dropdown")

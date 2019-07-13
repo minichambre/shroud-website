@@ -1,15 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AppController!{% endblock %}
+{% block title %}Shroud-Silvermoon | Apply{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="apply-container auto-container">
+  <h1> Apply to Shroud-Silvermoon </h1>
+  <p>
+    Before proceding, ensure you've read the content on the homepage. It contains a bunch of stuff about our guild that you should probably be aware of.
+  </p>
+  <p>
+    Take your time to fill out the below form. A member of our fantastic officer team will take a look at it and get back to you. Try to provide as much information as you can, and if you can't provide something (such as a log), just leave it blank.
+  </p>
+  {{ form_start(form) }}
+    <h3> What Are You Applying As? </h3>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.character_main)}}</span>
+      <span class="entry-input">{{ form_widget(form.character_main)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.character_main)}}
+      </div>
+    </div>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.spec)}}</span>
+      <span class="entry-input">{{ form_widget(form.spec)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.spec)}}
+      </div>
+    </div>
+    <h3> What's Your Experience Like? </h3>
+    <div class="form-section">
+      <div class="form-control">
+        <span class="entry-label">{{ form_label(form.experience)}}</span>
+        <span class="entry-input">{{ form_widget(form.experience)}} </span>
+        <div class="entry-error">
+          {{ form_errors(form.experience)}}
+        </div>
+      </div>
+      <div class="form-control">
+        <span class="entry-label">{{ form_label(form.history)}}</span>
+        <span class="entry-input">{{ form_widget(form.history)}} </span>
+        <div class="entry-error">
+          {{ form_errors(form.history)}}
+        </div>
+      </div>
+      <div class="form-control">
+        <span class="entry-label">{{ form_label(form.log_link)}}</span>
+        <span class="entry-input">{{ form_widget(form.log_link)}} </span>
+        <div class="entry-error">
+          {{ form_errors(form.log_link)}}
+        </div>
+      </div>
+      <div class="form-control">
+        <span class="entry-label">{{ form_label(form.character_alts)}}</span>
+        <span class="entry-input">{{ form_widget(form.character_alts)}} </span>
+        <div class="entry-error">
+          {{ form_errors(form.character_alts)}}
+        </div>
+      </div>
+    </div>
+    <h3> Tell Us About Yourself </h3>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.about)}}</span>
+      <span class="entry-input">{{ form_widget(form.about)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.about)}}
+      </div>
+    </div>
+    <h3> Last Bits... </h3>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.attendance)}}</span>
+      <span class="entry-input">{{ form_widget(form.attendance)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.attendance)}}
+      </div>
+    </div>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.voice)}}</span>
+      <span class="entry-input">{{ form_widget(form.voice)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.voice)}}
+      </div>
+    </div>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.battletag)}}</span>
+      <span class="entry-input">{{ form_widget(form.battletag)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.battletag)}}
+      </div>
+    </div>
+    <h3> Last Chance To Impress Us... </h3>
+      <div class="form-control">
+        <span class="entry-label">{{ form_label(form.additional)}}</span>
+        <span class="entry-input">{{ form_widget(form.additional)}} </span>
+        <div class="entry-error">
+          {{ form_errors(form.additional)}}
+        </div>
+      </div>
+    <h3> Perfect... We'll Take It From Here </h3>
+  {{ form_end(form) }}
 
-<div class="example-wrapper">
-    {{status}}
-    {{form(form)}}
 </div>
 {% endblock %}

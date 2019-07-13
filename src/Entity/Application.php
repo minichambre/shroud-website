@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ApplicationRepository")
@@ -18,6 +19,11 @@ class Application
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="alpha",
+     *     message="Character name can't contain numbers."
+     * )
      */
     private $character_main;
 
@@ -48,11 +54,13 @@ class Application
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank
      */
     private $spec;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank
      */
     private $attendance;
 
@@ -73,6 +81,7 @@ class Application
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Assert\NotBlank
      */
     private $battletag;
 

@@ -45,7 +45,7 @@
                 <a href="/apply"> Apply</a>
                 {% endif %}
                 {% if app.user %}
-                <a class="logged-in" href="/logout"> Hello, {{ app.user.username }}! </a>
+                <a class="logged-in" href="/logout"> Logout {{ app.user.username }}</a>
                 {% else %}
                 <a class="login" href="/login"> Login</a>
                 {% endif %}
