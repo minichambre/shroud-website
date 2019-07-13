@@ -23,49 +23,70 @@ body, html {
 }
 
 .logo {
-  max-width: 50px;
-  max-height:50px;
+  max-width: 100px;
+  max-height:100px;
 }
 
-.nav {
-  width:40%;
-  text-align: center;
+#head .desktop-header { /* desktop version hidden on mobile */
+  display:none;
+}
+
+#head .mobile-header {
+display: flex;
+justify-content: space-around;
+}
+
+.mobile-nav {
   display: flex;
-  justify-content: space-around;
-}
-
-.nav a {
-  text-decoration: none;
-  color:black;
-}
-
-.active {
-  color:var(--accent-colour)!important;
-}
-
-.login {
-  width:40%;
+  flex-direction: column;
   text-align: center;
+  justify-content: center;
+  width: 80%;
+}
+.mobile-nav a {
+  margin-bottom: 10px;
+}
+
+#head a {
   text-decoration: none;
   color:black;
 }
 
-.logged-in{
-  text-decoration: none;
-  color:black;
+h1 {
+  font-size: 24px;
+  text-align: center;
+}
+h2 {
+  font-size: 18px;
+  text-align: center;
 }
 
-#head .container {
-  display:flex;
-  width:100%;
-  max-width: 1000px;
-  margin:auto;
-  justify-content: space-evenly;
-  align-items: center;
+h3 {
+  width: 80%;
+  margin: 20px auto;
+  font-size: 22px;
+  box-shadow: 0px 5px 5px #0000002e;
+  padding: 5px 25px 5px;
+  color: black;
+  border-radius: 3px;
+  border-left: 20px solid var(--accent-colour);
+}
+
+h4 {
+  text-align: center;
+}
+
+p{
+  text-align: justify;
 }
 
 strong {
   color:var(--accent-colour);
+}
+
+.sign {
+  text-align: center;
+  display: block;
 }
 
 .chevron{
@@ -88,6 +109,10 @@ strong {
       transform: translateY(5px);
     }
 }
+
+@media only screen and (min-width: 800px) {
+
+}
 /* end base and head */
 
 /* Index.html */
@@ -108,10 +133,11 @@ strong {
   transform: translate(-50%, -50%);
   border-radius: 3px;
   color: black;
-  padding: 15px;
+  padding: 20px;
   box-shadow: 0px 0px 7px #00000059;
   width: 100%;
   max-width: 340px;
+  box-sizing: border-box;
 }
 
 .apply-now {
@@ -137,23 +163,6 @@ strong {
   margin-top: 10px;
 }
 
-h1 {
-  font-size: 24px;
-  text-align: center;
-}
-h2 {
-  font-size: 18px;
-  text-align: center;
-}
-
-p{
-  text-align: justify;
-}
-
-.recruitment-status{
-  text-align: center;
-  display:block;
-}
 /* end index.html */
 
 /* recruitment */
@@ -169,9 +178,10 @@ p{
 
 
 .classInfo {
-  width: 97%;
+  width: 50%;
   padding: 5px;
   border-radius: 3px;
+  margin:auto;
 }
 
 .classInfo img{
@@ -195,36 +205,96 @@ p{
 .needed{
   background: #73dc66;
 }
-@media only screen and (min-width: 400px) {
-  .recruitment-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    row-gap: 20px;
-    justify-items:center;
+
+.auto-container {
+  max-width: 900px;
+  margin: auto;
+  padding:0px 10px;
+}
+
+/* Desktop */
+@media only screen and (min-width: 800px) {
+  #head .desktop-header { /* desktop version of header */
+    display:flex;
+    width:100%;
+    max-width: 1000px;
+    margin:auto;
+    justify-content: space-evenly;
+    align-items: center;
   }
+
+  #head .mobile-header{
+    display: none;
+  }
+  .logo {
+    max-width: 70px;
+    max-height:70px;
+    margin-right: 30px;
+    display: unset;
+  }
+
   .classInfo {
     width: 120px;
     padding: 5px;
     border-radius: 3px;
   }
-
-}
-
-@media only screen and (min-width: 600px) {
-  .recruitment-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-}
-@media only screen and (min-width: 800px) {
-  .recruitment-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-}
-@media only screen and (min-width: 1200px) {
   .recruitment-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
+
+  ul {
+    text-align: center;
+    list-style: none;
+    padding-right: 40px;
+  }
+
+  h3 {
+    width:100%;
+  }
+  .nav {
+    width:40%;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .nav a {
+    margin-right: 20px;
+    display: block;
+  }
+
+  .nav a:hover > .status-bar{
+    width:100%;
+  }
+
+  .active {
+    color:var(--accent-colour)!important;
+  }
+
+  .status-bar {
+    border-bottom: 2px solid var(--accent-colour);
+    margin-top: 3px;
+    width: 0%;
+    margin-left: auto;
+    margin-right: auto;
+    transition:width 0.2s ease-out;
+  }
+
+  .login {
+    width:fit-content;
+    text-align: right;
+  }
+
+  .logged-in{
+  }
+
+  .login:hover > .status-bar{
+    width:100%;
+  }
+
 }
 /* end recruitment */

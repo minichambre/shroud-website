@@ -10,28 +10,44 @@
         {% endblock %}
     </head>
     <body>
-      <div id="wrapper">
         <header id="head">
-          <div class="container">
-            <img class="logo" src="https://s3.amazonaws.com/file3.guildlaunch.net/443842/site_files/site_header672.png">
+          <div class="desktop-header">
             <div class="nav">
-              <a href="/"> Home </a>
+              <a href="/"><img class="logo" src="https://s3.amazonaws.com/file3.guildlaunch.net/443842/site_files/site_header672.png"></a>
+              <a href="/"> Home <div class="status-bar"></div></a>
               {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-              <a href="/applications"> Applications </a>
+              <a href="/applications"> Applications <div class="status-bar"></div></a>
               {% else %}
-              <a href="/apply"> Apply </a>
+              <a href="/apply"> Apply <div class="status-bar"></div></a>
               {% endif %}
-
-              <a href="/"> Manage </a>
             </div>
             {% if app.user %}
             <a class="logged-in" href="/logout"> Hello, {{ app.user.username }}! </a>
             {% else %}
-            <a class="login" href="/login"> Login </a>
+            <a class="login" href="/login"> Login <div class="status-bar"></div></a>
             {% endif %}
           </div>
+
+          <div class="mobile-header">
+              <a href="/"><img class="logo" src="https://s3.amazonaws.com/file3.guildlaunch.net/443842/site_files/site_header672.png"></a>
+              <div class="mobile-nav">
+                <a href="/"> Home <div class="status-bar"></div></a>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a href="/applications"> Applications</a>
+                {% else %}
+                <a href="/apply"> Apply</a>
+                {% endif %}
+                {% if app.user %}
+                <a class="logged-in" href="/logout"> Hello, {{ app.user.username }}! </a>
+                {% else %}
+                <a class="login" href="/login"> Login</a>
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
         </header>
-      </div>
+
         {% block body %}
 
         {% endblock %}
