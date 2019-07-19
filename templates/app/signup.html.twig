@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shroud-Silvermoon | Apply{% endblock %}
+
+{% block body %}
+<div class="apply-container auto-container">
+  <h1> Apply to Shroud-Silvermoon </h1>
+  {% if app.user %}
+  <h3> You're already logged in you silly goose </h3>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/T048au7Ayqg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  {% else %}
+
+  <p>
+    Before proceding, ensure you've read the content on the homepage. It contains a bunch of stuff about our guild that you should probably be aware of.
+  </p>
+  <p>
+    Take your time to fill out the below form. A member of our fantastic officer team will take a look at it and get back to you. Try to provide as much information as you can, and if you can't provide something (such as a log), just leave it blank.
+  </p>
+  {{ form_start(form) }}
+    <h3> What Are You Applying As? </h3>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.username)}}</span>
+      <span class="entry-input">{{ form_widget(form.username)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.username)}}
+      </div>
+    </div>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.firstname)}}</span>
+      <span class="entry-input">{{ form_widget(form.firstname)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.firstname)}}
+      </div>
+    </div>
+    <div class="form-control">
+      <span class="entry-label">{{ form_label(form.lastname)}}</span>
+      <span class="entry-input">{{ form_widget(form.lastname)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.lastname)}}
+      </div>
+    </div>
+  {{ form_end(form) }}
+  {% endif %}
+</div>
+{% endblock %}

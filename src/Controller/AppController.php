@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AppController extends AbstractController
 {
@@ -80,9 +81,8 @@ class AppController extends AbstractController
             //return $this->redirectToRoute('task_success');
         }
 
-      return $this->render('app/apply.html.twig', [
+      return $this->render('app/signup.html.twig', [
           'form' => $form->createView(),
-          'controller_name' => 'AppController',
           'status' => $status
       ]);
     }
@@ -96,16 +96,17 @@ class AppController extends AbstractController
         $application =  new Application();
 
         $form = $this->createFormBuilder($application)
-          ->add('character_main', TextType::class)
-          ->add('spec', TextType::class)
-          ->add('character_alts', TextType::class)
-          ->add('log_link', TextType::class)
-          ->add('experience', TextareaType::class)
+          ->add('character_main', TextType::class, ['label' => "What's the character name?"])
+          ->add('spec', TextType::class, ['label' => "What class and spec are you applying as?"])
+          ->add('character_alts', TextType::class, ['label' => "Any alts you're proud of? What are their character names?"])
+          ->add('log_link', TextType::class, ['label' => "Link to a combat log"])
+          ->add('experience', TextareaType::class, ['label' => "Tell us about your raiding experience"])
           ->add('attendance', ChoiceType::class , [
             'choices' => [
                 "Can Attend" => true,
                 "Cannot Attend" => false
               ],
+              'label' => "Please confirm you can attend the posted raid days and times"
             ])
           ->add('voice', ChoiceType::class , [
             'choices' => [
@@ -113,11 +114,12 @@ class AppController extends AbstractController
                 "Just Headset" => true,
                 "Neither" => false
               ],
+              'label' => "Voice Communication Setup"
             ])
-          ->add('about', TextareaType::class)
-          ->add('history', TextareaType::class)
-          ->add('additional', TextareaType::class)
-          ->add('battletag', TextType::class)
+          ->add('about', TextareaType::class, ['label' => "Tell us about you. Age/Hobbies etc"])
+          ->add('history', TextareaType::class, ['label' => "What guilds have you been a part of? Why did you leave them?"])
+          ->add('additional', TextareaType::class,['label' => "For anything you want to say that you haven't already."])
+          ->add('battletag', TextType::class, ['label' => "Battletag which we can use to contact you"])
           ->add('save', SubmitType::class, ['label' => 'Send Application'])
           ->getForm();
 
@@ -158,4 +160,18 @@ class AppController extends AbstractController
         "applications" => $results
       ]);
     }
+  /**
+    * @Route("/api/applications/get", name="api/applications/get")
+    * @Security("is_granted('ROLE_USER')")
+    */
+   public function getApplications(){
+     $return = [];
+     $results =$this->getDoctrine()->getRepository(Application::class)->getAllApplications();
+    foreach ($results as $result){
+      $return[] = (array) $result;
+    }
+     return new JsonResponse([
+       "items" => $return
+     ]);
+   }
 }

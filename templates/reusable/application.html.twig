@@ -1,0 +1,26 @@
+<div class="application-container">
+  {{application.owner}}
+  <div class="character-data">
+    <span class="name"> {{application_data.CharacterMain}} </span> <span class="charSpec">{{application_data.spec}}</span>
+  </div>
+
+  <div class="glimpse-info">
+    <div class="app-about">
+      <span class="app-title"> About </span>
+    {{application_data.about}}
+    </div>
+
+  </div>
+  {{application_data.id}}
+  {{application_data.status}}
+
+  {{application_data.CharacterAlts}}
+  <a href="{{application_data.LogLink}}"> {{application_data.LogLink}} </a>
+  {{application_data.DateCreated |date("d/m/Y h:i:s a", "Europe/London")}}
+  <!-- {{application_data.experience}} -->
+  {{application_data.attendance}}
+  <!-- {{application_data.about}}
+  {{application_data.history}} -->
+  {{application_data.voice}}
+  {{application_data.battletag}}
+</div>
