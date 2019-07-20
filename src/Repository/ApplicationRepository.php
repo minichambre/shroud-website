@@ -26,8 +26,8 @@ class ApplicationRepository extends ServiceEntityRepository
     public function getAllApplications()
     {
         return $this->createQueryBuilder('a')
-            ->orderBy('a.id', 'ASC')
-
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         ;

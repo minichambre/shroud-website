@@ -86,7 +86,7 @@ class Application
     private $battletag;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=32)
      */
     private $voice;
 
@@ -94,6 +94,11 @@ class Application
      * @ORM\OneToOne(targetEntity="App\Entity\Member", mappedBy="application", cascade={"persist", "remove"})
      */
     private $owner;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $class_type;
 
 
     public function getId(): ?int
@@ -271,6 +276,18 @@ class Application
         if ($newApplication !== $owner->getApplication()) {
             $owner->setApplication($newApplication);
         }
+
+        return $this;
+    }
+
+    public function getClassType(): ?string
+    {
+        return $this->class_type;
+    }
+
+    public function setClassType(string $class_type): self
+    {
+        $this->class_type = $class_type;
 
         return $this;
     }

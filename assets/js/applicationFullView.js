@@ -19,7 +19,7 @@ export default class applicationFullView extends React.Component {
   render(){
     return (
       <React.Fragment>
-      <button class="backButton" onClick={this.props.back}>Back</button>
+      <button className="backButton" onClick={this.props.back}>Back</button>
       <h3> Character Information </h3>
       <span className="largeName">
         {this.props.appDetails.character_main}
@@ -28,7 +28,7 @@ export default class applicationFullView extends React.Component {
         {this.props.appDetails.spec}
       </span>
       <span className="logLink">
-        <a href={this.props.appDetails.log_link}> Log Link </a>
+        <a target="_blank" href={this.props.appDetails.log_link}> Log Link </a>
       </span>
 
       <h3> About </h3>
@@ -42,6 +42,19 @@ export default class applicationFullView extends React.Component {
       <h3> History </h3>
       <span className="history">
         {this.props.appDetails.history}
+      </span>
+      <h3> Extra Info </h3>
+      <span className="attendance">
+        Meets Attendance Requirements:
+        {this.props.appDetails.attendance ? " True" : " False"}
+      </span>
+      <span className="voice">
+        Communication Capabilities:
+        {this.props.appDetails.voice}
+      </span>
+      <span className="battletag">
+        Battletag:
+        {this.props.appDetails.battletag}
       </span>
       </React.Fragment>
     );

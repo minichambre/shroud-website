@@ -218,6 +218,13 @@ strong {
   flex-direction: column;
 }
 
+.img-container {
+  background: black;
+display: block;
+width: fit-content;
+border-radius: 20px;
+margin: auto;
+}
 
 .classInfo {
   width: 50%;
@@ -484,7 +491,7 @@ strong {
 
 .applications-container .wrapper {
   display: flex;
-  width: 200%;
+  width: 205%;
   position: relative;
   left: 0%;
   transition: left 0.5s ease-out;
@@ -529,8 +536,13 @@ strong {
 }
 
 .smallApp img {
-  margin:5px;
-  margin-right:10px;
+  margin: 5px 20px;
+  max-height: 70px;
+  background: black;
+  max-width: 70px;
+  padding: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .textContainer{
@@ -589,6 +601,14 @@ strong {
   color:var(--accent-colour);
 }
 
+.voice {
+  display: block;
+}
+
+.battletag{
+  display: block;
+}
+
 @media only screen and (min-width: 800px) {
   .applications-container .wrapper {
     display: flex;
@@ -598,8 +618,10 @@ strong {
 
   .applications-container .list {
     display: inline-block;
-    width:40%;
-    height:100%;
+    width: 40%;
+    height: 100%;
+    max-height: 65vh;
+    overflow: auto;
   }
 
   .applications-container .fullView {
@@ -608,7 +630,7 @@ strong {
     max-height: 70vh;
     margin-top: 5px;
     margin-left: 15px;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-left:unset;
   }
 

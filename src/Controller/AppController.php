@@ -97,10 +97,27 @@ class AppController extends AbstractController
 
         $form = $this->createFormBuilder($application)
           ->add('character_main', TextType::class, ['label' => "What's the character name?"])
-          ->add('spec', TextType::class, ['label' => "What class and spec are you applying as?"])
+          ->add('spec', TextType::class, ['label' => "What spec are you applying as?"])
           ->add('character_alts', TextType::class, ['label' => "Any alts you're proud of? What are their character names?"])
           ->add('log_link', TextType::class, ['label' => "Link to a combat log"])
           ->add('experience', TextareaType::class, ['label' => "Tell us about your raiding experience"])
+          ->add('class_type', ChoiceType::class , [
+            'choices' => [
+                "Druid" => "Druid",
+                "Death Knight" => "Death Knight",
+                "Monk" => "Monk",
+                "Shaman" => "Shaman",
+                "Warrior" => "Warrior",
+                "Priest" => "Priest",
+                "Warlock" => "Warlock",
+                "Mage" => "Mage",
+                "Hunter" => "Hunter",
+                "Demon Hunter" => "Demon Hunter",
+                "Rogue" => "Rogue",
+                "Paladin" => "Paladin",
+              ],
+              'label' => "What is your class?"
+            ])
           ->add('attendance', ChoiceType::class , [
             'choices' => [
                 "Can Attend" => true,
@@ -110,9 +127,9 @@ class AppController extends AbstractController
             ])
           ->add('voice', ChoiceType::class , [
             'choices' => [
-                "Mic & Headset" => true,
-                "Just Headset" => true,
-                "Neither" => false
+                "Mic & Headset" => "Mic & Headset",
+                "Just Headset" => "Just Headset",
+                "Neither" => "None"
               ],
               'label' => "Voice Communication Setup"
             ])

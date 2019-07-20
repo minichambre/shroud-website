@@ -21,6 +21,13 @@
       </div>
     </div>
     <div class="form-control">
+      <span class="entry-label">{{ form_label(form.class_type)}}</span>
+      <span class="entry-input">{{ form_widget(form.class_type)}} </span>
+      <div class="entry-error">
+        {{ form_errors(form.class_type)}}
+      </div>
+    </div>
+    <div class="form-control">
       <span class="entry-label">{{ form_label(form.spec)}}</span>
       <span class="entry-input">{{ form_widget(form.spec)}} </span>
       <div class="entry-error">

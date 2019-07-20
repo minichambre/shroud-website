@@ -39,13 +39,11 @@ class ApplicationsContainer extends React.Component {
   }
 
   handleSmallAppClick(index){
-    console.log("Parent got: ", index);
     this.setState({showIndex:index, showFullView:true});
 
   }
 
   backButton() {
-    console.log("hi");
     this.setState({showFullView: false});
   }
 

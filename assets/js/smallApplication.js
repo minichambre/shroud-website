@@ -13,12 +13,8 @@ export default class SmallApplication extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.props.index);
     let dateCreated = this.props.application.date_created;
     let currentTime = Date.now();
-    console.log("current " , currentTime);
-    console.log("created " , dateCreated);
-    console.log("minus ",currentTime - dateCreated);
     this.setState({
       app: this.props.application,
       timeSince: this.timeSince(Math.round(currentTime - (dateCreated*1000))),
@@ -67,13 +63,42 @@ export default class SmallApplication extends React.Component {
     this.myRef.current.classList.add('activeApp');
   }
 
+  getImage(){
+    switch (this.state.app.class_type){
+      case "Druid":
+        return "/images/class-icons/GameIcon-class-druid-vector.png"
+      case "Warlock":
+        return "/images/class-icons/GameIcon-class-warlock-vector.png"
+      case "Rogue":
+        return "/images/class-icons/GameIcon-class-rogue-vector.png"
+      case "Priest":
+        return "/images/class-icons/GameIcon-class-priest-vector.png"
+      case "Paladin":
+        return "/images/class-icons/GameIcon-class-paladin-vector.png"
+      case "Mage":
+        return "/images/class-icons/GameIcon-class-mage-vector.png"
+      case "Shaman":
+        return "/images/class-icons/GameIcon-class-shaman-vector.png"
+      case "Monk":
+        return "/images/class-icons/GameIcon-class-monk-vector.png"
+      case "Death Knight":
+        return "/images/class-icons/GameIcon-class-death-knight-vector.png"
+      case "Demon Hunter":
+        return "/images/class-icons/GameIcon-class-demon-hunter-vector.png"
+      case "Hunter":
+        return "/images/class-icons/GameIcon-class-hunter-vector.png"
+      case "Warrior":
+        return "/images/class-icons/GameIcon-class-warrior-vector.png"
+    }
+  }
+
 
   render(){
     return (
       <React.Fragment>
       {this.state.loaded &&
         <div ref={this.myRef} className="smallApp" onClick={this.clicked}>
-          <img src="https://via.placeholder.com/100/aaaaaa/FFFFFF/?text=IPaddress.net"/>
+          <img src={this.getImage()}/>
           <div className="textContainer">
             <span className="smallName"> {this.state.app.character_main} </span>
             <span className="smallSpec"> {this.state.app.spec} </span>
