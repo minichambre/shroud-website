@@ -11,6 +11,7 @@ class ApplicationsContainer extends React.Component {
       showIndex:0
     };
     this.handleSmallAppClick = this.handleSmallAppClick.bind(this);
+    this.backButton = this.backButton.bind(this);
   }
 
   componentDidMount(){
@@ -39,7 +40,13 @@ class ApplicationsContainer extends React.Component {
 
   handleSmallAppClick(index){
     console.log("Parent got: ", index);
-    this.setState({showIndex:index});
+    this.setState({showIndex:index, showFullView:true});
+
+  }
+
+  backButton() {
+    console.log("hi");
+    this.setState({showFullView: false});
   }
 
 
@@ -50,7 +57,7 @@ class ApplicationsContainer extends React.Component {
         <div className="applications-controlPanel">
         <input className="searchApp" placeholder="Search Applications"/>
         </div>
-        <div className="wrapper">
+        <div className="wrapper" style={{left:this.state.showFullView ? "-105%" : ""}}>
           <div className="list">
             {this.state.isLoaded && this.state.listOfApplications.map((applicationDetails,i) =>
               <SmallApplication
@@ -65,6 +72,7 @@ class ApplicationsContainer extends React.Component {
           {this.state.isLoaded &&
             <ApplicationFullView
               appDetails={this.state.listOfApplications[this.state.showIndex]}
+              back={this.backButton}
             />
           }
           </div>

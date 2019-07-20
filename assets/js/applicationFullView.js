@@ -19,6 +19,7 @@ export default class applicationFullView extends React.Component {
   render(){
     return (
       <React.Fragment>
+      <button class="backButton" onClick={this.props.back}>Back</button>
       <h3> Character Information </h3>
       <span className="largeName">
         {this.props.appDetails.character_main}
