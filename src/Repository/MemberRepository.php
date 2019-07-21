@@ -47,4 +47,18 @@ class MemberRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findOneByToken($value): ?Member
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.verification_code = :val')
+            ->andWhere('m.validated = :val2')
+            ->setParameter('val', $value)
+            ->setParameter('val2', 0)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 }

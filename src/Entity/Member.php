@@ -34,16 +34,6 @@ class Member implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=32)
-     */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=32)
-     */
-    private $lastname;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $last_edited;
@@ -57,6 +47,21 @@ class Member implements UserInterface
      * @ORM\OneToOne(targetEntity="App\Entity\Application", inversedBy="owner", cascade={"persist", "remove"})
      */
     private $application;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $validated;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $verification_code;
 
     public function getId(): ?int
     {
@@ -131,30 +136,6 @@ class Member implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
     public function getLastEdited(): ?int
     {
         return $this->last_edited;
@@ -187,6 +168,42 @@ class Member implements UserInterface
     public function setApplication(?Application $application): self
     {
         $this->application = $application;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getValidated(): ?bool
+    {
+        return $this->validated;
+    }
+
+    public function setValidated(bool $validated): self
+    {
+        $this->validated = $validated;
+
+        return $this;
+    }
+
+    public function getVerificationCode(): ?string
+    {
+        return $this->verification_code;
+    }
+
+    public function setVerificationCode(string $verification_code): self
+    {
+        $this->verification_code = $verification_code;
 
         return $this;
     }

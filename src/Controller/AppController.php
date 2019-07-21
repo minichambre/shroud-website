@@ -6,6 +6,7 @@ use App\Entity\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -50,9 +52,9 @@ class AppController extends AbstractController
       $member =  new Member();
 
       $form = $this->createFormBuilder($member)
+        ->add('email', TextType::class)
         ->add('username', TextType::class)
-        ->add('firstname', TextType::class)
-        ->add('lastname', TextType::class)
+        ->add('password', PasswordType::class)
         ->add('save', SubmitType::class, ['label' => 'Sign Up'])
         ->getForm();
 
@@ -67,6 +69,8 @@ class AppController extends AbstractController
             //$member->setStatus("pending");
             $plainPassword = "password";
             $encoded = $encoder->encodePassword($member, $plainPassword);
+            $member->setValidated(false);
+            $member->setVerificationCode(bin2hex(random_bytes(16)));
             $member->setPassword($encoded);
             $member->setLastEdited(time());
             $member->setLastLogin(time());
@@ -77,8 +81,15 @@ class AppController extends AbstractController
             $entityManager->persist($member);
             $entityManager->flush();
 
+            $response = $this->forward('App\Controller\MailController::sendVerificationEmail', [
+                'accountData' => [
+                  "email" => $member->getEmail(),
+                  "verificationCode" => $member->getVerificationCode()
+                ]
+            ]);
+
             $status="done";
-            //return $this->redirectToRoute('task_success');
+            return $this->redirectToRoute('accountCreateSuccess');
         }
 
       return $this->render('app/signup.html.twig', [
@@ -90,8 +101,11 @@ class AppController extends AbstractController
     /**
      * @Route("/apply", name="apply")
      */
-    public function apply(Request $request)
+    public function apply(Request $request, AuthorizationCheckerInterface $authChecker)
     {
+      if (false === $authChecker->isGranted('ROLE_USER')) {
+        return $this->redirectToRoute("signUp");
+      }
         $status = false;
         $application =  new Application();
 
@@ -150,6 +164,7 @@ class AppController extends AbstractController
 
               $application->setStatus("pending");
               $application->setDateCreated(time());
+              $application->setOwner($this->getUser());
               // ... perform some action, such as saving the task to the database
               // for example, if Task is a Doctrine entity, save it!
               $entityManager = $this->getDoctrine()->getManager();
@@ -166,6 +181,41 @@ class AppController extends AbstractController
             'status' => $status
         ]);
     }
+
+    /**
+      * @Route("/success", name="accountCreateSuccess")
+      */
+     public function accountCreated(){
+       return $this->render('app/success.html.twig', [
+       ]);
+  }
+
+  /**
+    * @Route("/verify", name="accountVerify")
+    */
+   public function accountVerify(){
+     if (!isset($_GET['token']))
+     {
+       return $this->render('app/verify.html.twig', [
+         "status" => "missing"
+       ]);
+     }
+
+     $result = $this->getDoctrine()->getRepository(Member::class)->findOneByToken($_GET['token']);
+     if ($result){
+       $result->setValidated(true);
+       $this->entityManager->persist($result);
+       $this->entityManager->flush();
+       return $this->render('app/verify.html.twig', [
+         "status" => "success"
+       ]);
+     } else {
+       return $this->render('app/verify.html.twig', [
+         "status" => "invalid"
+       ]);
+     }
+
+}
 
     /**
      * @Route("/applications", name="applications")
