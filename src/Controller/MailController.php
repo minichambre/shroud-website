@@ -44,7 +44,7 @@ class MailController extends AbstractController
               //->priority(Email::PRIORITY_HIGH)
               ->subject('Verify your Shroud account.')
               ->text('Sending emails is fun again!')
-              ->html('<p><a href="/verify?token=' . $accountData["verificationCode"] . '">Please click here</a> to verify your account.</p>');
+              ->html('<p><a href="http://dev-shroud.herokuapp.com/verify?token=' . $accountData["verificationCode"] . '">Please click here</a> to verify your account.</p>');
 
           $mailer->send($email);
           return true;
